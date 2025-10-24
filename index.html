@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArogyaVaani - Your Health, In Every Voice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>🏥 ArogyaVaani</h1>
+      <p>Your Health, In Every Voice</p>
+      <div class="header-controls">
+        <button id="theme-toggle" class="btn-secondary">🌓 Toggle Theme</button>
+        <button id="back-btn" class="btn-secondary hidden">← Back</button>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Language Selection -->
+      <div id="language-section" class="card">
+        <h2>Select Language / भाषा चुनें</h2>
+        <div class="form-group">
+          <select id="language-select">
+            <option value="en">English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="gu">ગુજરાતી (Gujarati)</option>
+            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+            <option value="ml">മലയാളം (Malayalam)</option>
+            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- User Type Selection -->
+      <div id="user-selection" class="user-selection">
+        <div class="card" style="max-width: 500px; width: 100%">
+          <h2 style="text-align: center" id="select-user-title">
+            Select User Type
+          </h2>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 15px;
+              margin-top: 20px;
+            "
+          >
+            <button id="caregiver-btn" class="btn-primary btn-large">
+              👨‍⚕ Caregiver / Family
+            </button>
+            <button id="patient-btn" class="btn-success btn-large">
+              🤒 Patient
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caregiver Panel -->
+      <div id="caregiver-panel" class="hidden">
+        <div class="alert alert-info">
+          <span>ℹ</span>
+          <span id="caregiver-info"
+            >You are in Caregiver mode. Add medicine reminders for your
+            patient.</span
+          >
+        </div>
+
+        <!-- Add Reminder Form -->
+        <div class="card">
+          <h2 id="add-reminder-title">Add Medicine Reminder</h2>
+          <div class="grid-2">
+            <div class="form-group">
+              <label id="label-medicine">Medicine Name</label>
+              <input
+                type="text"
+                id="medicine-name"
+                placeholder="e.g., Aspirin"
+              />
+            </div>
+            <div class="form-group">
+              <label id="label-dosage">Dosage</label>
+              <input type="text" id="dosage" placeholder="e.g., 1 tablet" />
+            </div>
+            <div class="form-group">
+              <label id="label-time">Time</label>
+              <input type="datetime-local" id="reminder-time" />
+            </div>
+            <div class="form-group">
+              <label id="label-frequency">Frequency</label>
+              <select id="frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="label-caregiver-phone"
+              >Caregiver Phone Number (for alerts)</label
+            >
+            <input
+              type="tel"
+              id="caregiver-phone"
+              placeholder="+91 1234567890"
+            />
+          </div>
+          <button id="add-reminder-btn" class="btn-primary" style="width: 100%">
+            ➕ Add Reminder
+          </button>
+        </div>
+
+        <!-- Reminder List -->
+        <div class="card">
+          <h2 id="reminders-title">All Reminders</h2>
+          <div id="caregiver-reminder-list" class="reminder-list">
+            <div class="empty-state">
+              <div class="empty-state-icon">📋</div>
+              <p id="no-reminders">
+                No reminders added yet. Add your first reminder above!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Patient Panel -->
+      <div id="patient-panel" class="hidden">
+        <div class="alert alert-success">
+          <span>✅</span>
+          <span id="patient-info"
+            >Patient mode activated. Listen for voice reminders!</span
+          >
+        </div>
+
+        <!-- Voice Control -->
+        <div class="voice-control">
+          <h3 id="voice-command-title">Voice Command</h3>
+          <p id="voice-instructions" style="margin-bottom: 20px">
+            Press the microphone and say:<br />
+            <strong>"TAKEN"</strong> | <strong>"SNOOZE"</strong> |
+            <strong>"HELP"</strong>
+          </p>
+          <button id="voice-btn" class="voice-btn">🎤</button>
+          <p
+            id="listening-text"
+            class="hidden"
+            style="margin-top: 20px; font-size: 1.2rem"
+          >
+            🔴 Listening...
+          </p>
+        </div>
+
+        <!-- Active Reminders -->
+        <div class="card">
+          <h2 id="active-reminders-title">Your Medicine Reminders</h2>
+          <div id="patient-reminder-list" class="reminder-list">
+            <div class="empty-state">
+              <div class="empty-state-icon">💊</div>
+              <p id="no-active-reminders">
+                No active reminders. Your caregiver will add them for you.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+          <h2 id="quick-actions-title">Quick Actions</h2>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <button id="speak-all-btn" class="btn-primary">
+              🔊 Read All Reminders
+            </button>
+            <button id="emergency-btn" class="btn-danger">
+              🚨 Emergency Call
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
